@@ -12,6 +12,7 @@ interface OnboardingCarouselItemProps extends OnboardingCarouselData {
 
 interface OnboardingCarouselProps {
   data: OnboardingCarouselData[]
+  width: number
 }
 
 interface OnboardingCarouselPaginationItemProps {
@@ -33,14 +34,14 @@ const OnboardingCarouselPaginationItem: FC<OnboardingCarouselPaginationItemProps
 
 const OnboardingCarouselItem: FC<OnboardingCarouselItemProps> = ({ title, description, width }) => {
   return (
-    <View style={{ width }}>
-      <Text style={{ color: '#FAFBFD', fontWeight: 'bold', fontSize: 26 }}>{title}</Text>
-      <Text style={{ color: '#B2BBCE', fontSize: 18 }}>{description}</Text>
+    <View style={{ overflow: 'hidden', width }}>
+      <Text style={{ color: '#FAFBFD', fontWeight: '700', fontSize: 30, lineHeight: 38 }}>{title}</Text>
+      <Text style={{ color: '#B2BBCE', fontSize: 18, fontWeight: '500', lineHeight: 22, paddingTop: 20 }}>{description}</Text>
     </View>
   )
 }
 
-export const OnboardingCarousel: FC<OnboardingCarouselProps> = ({ data }) => {
+export const OnboardingCarousel: FC<OnboardingCarouselProps> = ({ data, width }) => {
   const [index, setIndex] = useState(0)
   const indexRef = useRef(index)
   indexRef.current = index
@@ -59,37 +60,20 @@ export const OnboardingCarousel: FC<OnboardingCarouselProps> = ({ data }) => {
     }
   }, [])
 
-  const { width } = Dimensions.get('window')
-
-  const flatListOptimizationProps = {
-    initialNumToRender: 0,
-    maxToRenderPerBatch: 1,
-    removeClippedSubviews: true,
-    scrollEventThrottle: 16,
-    windowSize: 2,
-    getItemLayout: useCallback(
-      (_: ArrayLike<OnboardingCarouselData> | null | undefined, index: number) => ({
-        index,
-        length: width,
-        offset: index * width,
-      }),
-      []
-    ),
-  }
-
   return (
-    <View style={{display: 'flex', flexDirection: 'column', gap: 40, maxHeight: '100%', overflow: 'hidden'}}>
+    <View
+      style={{ display: 'flex', flexDirection: 'column', gap: 40, height: 220, maxWidth: '100%', overflow: 'hidden', width }}
+    >
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <OnboardingCarouselItem title={item.title} description={item.description} width={width} />
+          <OnboardingCarouselItem title={item.title} description={item.description} width={300} />
         )}
         onScroll={onScroll}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         keyExtractor={useCallback((e: OnboardingCarouselData) => e.title, [])}
-        {...flatListOptimizationProps}
       />
       <View
         style={{
@@ -99,7 +83,7 @@ export const OnboardingCarousel: FC<OnboardingCarouselProps> = ({ data }) => {
         }}
       >
         {data.map((_, i) => (
-          <OnboardingCarouselPaginationItem isActive={index === i} />
+          <OnboardingCarouselPaginationItem isActive={index === i} key={i} />
         ))}
       </View>
     </View>
