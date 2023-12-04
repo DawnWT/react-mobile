@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Image, View } from 'react-native'
 import { OnboardingCarousel, OnboardingCarouselData } from '../components/onboarding-carousel'
 import { AppButton } from '../components/button'
+import { useNavigation } from '@react-navigation/native'
 
 const onBoardingData: Array<OnboardingCarouselData> = [
   {
@@ -12,12 +13,17 @@ const onBoardingData: Array<OnboardingCarouselData> = [
   { title: 'title 3', description: 'Morbi varius, massa at tempor hendrerit, erat neque sagittis turpis.' },
 ]
 
-export const OnBoardingPage: FC = () => {
+export const OnBoardingPage = () => {
+  const navigation = useNavigation()
+
+  const handleGetStarted = () => {
+    navigation.navigate('Home')
+  }
   return (
     <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 117, width: '100%', paddingVertical: 33, paddingHorizontal: 42, backgroundColor: '#2A4BA0' }}>
       <OnboardingCarousel data={onBoardingData} width={300} />
       <Image source={require('../../medias/icon/medias.png')} tintColor='#FFFFFF45' />
-      <AppButton arrowIcon={true} text="Get Started" />
+      <AppButton arrowIcon={true} text="Get Started" onClick={handleGetStarted} />
     </View>
   )
 }
