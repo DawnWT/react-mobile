@@ -1,16 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { OnBoardingPage } from './src/pages/onBoarding';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
+import { BottomTabNavigationProp, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
+import { CompositeNavigationProp, NavigationContainer } from '@react-navigation/native';
 import { HomePage } from './src/pages/HomePage';
 import { CategoriesPage } from './src/pages/CategoriesPage';
 import { MorePage } from './src/pages/MorePage';
 import { FavoritePage } from './src/pages/FavoritePage';
 
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+export type StackParamList = {
+  OnBoarding: undefined;
+  App: undefined;
+};
+
+export type TabParamList = {
+  Home: undefined;
+  Categories: undefined;
+  Favorite: undefined;
+  More: undefined;
+};
+
+export type StackNavigationProps<T extends keyof StackParamList> = CompositeNavigationProp<
+  StackNavigationProp<StackParamList, T>,
+  BottomTabNavigationProp<TabParamList>
+>
+
+export type TabNavigationProps<T extends keyof TabParamList> = CompositeNavigationProp<
+  StackNavigationProp<StackParamList>,
+  BottomTabNavigationProp<TabParamList, T>
+>
+
+const Tab = createBottomTabNavigator<TabParamList>();
+const Stack = createStackNavigator<StackParamList>();
 
 const HomeTabs = () => {
   return (
