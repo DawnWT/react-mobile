@@ -8,6 +8,7 @@ import { HomePage } from './src/pages/HomePage';
 import { CategoriesPage } from './src/pages/CategoriesPage';
 import { MorePage } from './src/pages/MorePage';
 import { FavoritePage } from './src/pages/FavoritePage';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export type StackParamList = {
   OnBoarding: undefined;
@@ -30,6 +31,8 @@ export type TabNavigationProps<T extends keyof TabParamList> = CompositeNavigati
   StackNavigationProp<StackParamList>,
   BottomTabNavigationProp<TabParamList, T>
 >
+
+const queryClient = new QueryClient()
 
 const Tab = createBottomTabNavigator<TabParamList>();
 const Stack = createStackNavigator<StackParamList>();
@@ -86,12 +89,14 @@ const HomeTabs = () => {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false}} initialRouteName='OnBoarding'>
-        <Stack.Screen name="OnBoarding" component={OnBoardingPage}  />
-        <Stack.Screen name="App" component={HomeTabs} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false}} initialRouteName='OnBoarding'>
+          <Stack.Screen name="OnBoarding" component={OnBoardingPage}  />
+          <Stack.Screen name="App" component={HomeTabs} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 
