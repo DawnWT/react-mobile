@@ -13,7 +13,7 @@ interface FakeStoreGetProductPropsReturnArray extends FakeStoreGetProductQueryPa
   id?: undefined
 }
 interface FakeStoreGetProductPropsReturnItem extends FakeStoreGetProductQueryParams {
-  id?: number
+  id: number
   category?: undefined
 }
 
@@ -32,7 +32,7 @@ const productSchema = z.object({
   })
 })
 
-export function useFakeStoreGetProduct(props: FakeStoreGetProductPropsReturnArray): UseQueryResult<{
+export function useFakeStoreGetProduct(props?: FakeStoreGetProductPropsReturnArray): UseQueryResult<{
   id: number;
   title: string;
   price: number;
@@ -44,7 +44,7 @@ export function useFakeStoreGetProduct(props: FakeStoreGetProductPropsReturnArra
       count: number;
   };
 }[], Error>;
-export function useFakeStoreGetProduct(props: FakeStoreGetProductPropsReturnItem): UseQueryResult<{
+export function useFakeStoreGetProduct(props?: FakeStoreGetProductPropsReturnItem): UseQueryResult<{
   id: number;
   title: string;
   price: number;
@@ -56,7 +56,7 @@ export function useFakeStoreGetProduct(props: FakeStoreGetProductPropsReturnItem
       count: number;
   };
 }, Error>;
-export function useFakeStoreGetProduct({category, id, limit, sort}: FakeStoreProductProps) {
+export function useFakeStoreGetProduct({category, id, limit, sort}: FakeStoreProductProps = {}) {
   const baseUrl = "https://fakestoreapi.com/products"
 
   let url = `${baseUrl}/`
