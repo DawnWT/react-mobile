@@ -25,7 +25,7 @@ export const AppButton: FC<AppButtonProps> = ({ text, onClick, arrowIcon }) => {
         onPress={onClick}
       >
         <Text style={{ fontSize: 16, fontStyle: 'normal', fontWeight: '600', lineHeight: 24 }}>{text}</Text>
-        {arrowIcon && <Image source={require('../../medias/icon/Arrow_4.png')} tintColor='black' />}
+        {arrowIcon && <Image source={require('../../medias/icon/Arrow_4.png')} tintColor="black" />}
       </TouchableOpacity>
     </View>
   )

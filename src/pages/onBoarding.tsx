@@ -22,9 +22,21 @@ export const OnBoardingPage = () => {
   }
 
   return (
-    <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 117, width: '100%', paddingVertical: 33, paddingHorizontal: 42, backgroundColor: '#2A4BA0' }}>
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 117,
+        width: '100%',
+        paddingVertical: 33,
+        paddingHorizontal: 42,
+        backgroundColor: '#2A4BA0',
+      }}
+    >
       <OnboardingCarousel data={onBoardingData} width={300} />
-      <Image source={require('../../medias/icon/medias.png')} tintColor='#FFFFFF45' />
+      <Image source={require('../../medias/icon/medias.png')} tintColor="#FFFFFF45" />
       <AppButton arrowIcon={true} text="Get Started" onClick={handleGetStarted} />
     </View>
   )

@@ -5,7 +5,7 @@ import { AppButton } from '../components/button'
 import { useNavigation } from '@react-navigation/native'
 
 export const FavoritePage = () => {
-    const navigation = useNavigation()
+  const navigation = useNavigation()
 
-    return <></>
+  return <></>
 }
