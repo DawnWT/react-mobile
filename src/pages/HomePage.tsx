@@ -10,7 +10,7 @@ export const HomePage = () => {
     <View style={styles.header}>
       <Text>Hey, Halal</Text>
       <Image source={require('../../medias/icon/cart_icon.png')} />
-🐛
+
       <View style={styles.searchBar}>
         <TextInput style={styles.searchBarInput} placeholder="Search Products or store" />
       </View>

@@ -37,42 +37,43 @@ const Stack = createStackNavigator<StackParamList>();
 const HomeTabs = () => {
   return (
     <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconComponent;
+      initialRouteName='Home'
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconComponent;
 
-        if (route.name === "Home") {
-          iconComponent = (
-            <Image
-            style={{ width: 24, height: 24 }}
-            source={require("./medias/icon/home.png")}
-          />
-          );
-        } else if (route.name === "Categories") {
-          iconComponent = (
-            <Image 
-              style={{ width: 24, height: 24 }} 
-              source={require("./medias/icon/category.png")} />
-          );
-        } else if (route.name === "Favorite") {
-          iconComponent = (
-            <Image 
-              style={{ width: 24, height: 24 }} 
-              source={require("./medias/icon/heart.png")}
-            />
-          );
-        } else if (route.name === "More") {
-          iconComponent = (
-            <Image 
-              style={{ width: 24, height: 24 }} 
-              source={require("./medias/icon/more-vertical.png")} 
-            />
-          );
-        }
+          if (route.name === "Home") {
+            iconComponent = (
+              <Image
+                style={{ width: 24, height: 24 }}
+                source={require("./medias/icon/home.png")}
+              />
+            );
+          } else if (route.name === "Categories") {
+            iconComponent = (
+              <Image 
+                style={{ width: 24, height: 24 }} 
+                source={require("./medias/icon/category.png")} />
+            );
+          } else if (route.name === "Favorite") {
+            iconComponent = (
+              <Image 
+                style={{ width: 24, height: 24 }} 
+                source={require("./medias/icon/Heart.png")}
+              />
+            );
+          } else if (route.name === "More") {
+            iconComponent = (
+              <Image 
+                style={{ width: 24, height: 24 }} 
+                source={require("./medias/icon/more-vertical.png")} 
+              />
+            );
+          }
 
-        return iconComponent;
-      },
-    })}
+          return iconComponent;
+        },
+      })}
   >
    
       <Tab.Screen name="Home" component={HomePage} />
@@ -86,10 +87,10 @@ const HomeTabs = () => {
 export default function App() {
   return (
     <NavigationContainer>
-    <Stack.Navigator screenOptions={{ headerShown: false}}>
-      <Stack.Screen name="OnBoarding" component={OnBoardingPage}  />
-      <Stack.Screen name="Home" component={HomeTabs} />
-    </Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false}} initialRouteName='OnBoarding'>
+        <Stack.Screen name="OnBoarding" component={OnBoardingPage}  />
+        <Stack.Screen name="App" component={HomeTabs} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
