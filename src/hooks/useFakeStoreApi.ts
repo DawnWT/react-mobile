@@ -3,12 +3,21 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
 type categories = "electronics" | "jewelery" | "men's clothing" | "women's clothing"
 
-interface FakeStoreProductProps {
-  id?: number
-  category?: categories
+interface FakeStoreGetProductQueryParams {
   sort?: "desc" | "asc"
   limit?: number
 }
+
+interface FakeStoreGetProductPropsReturnArray extends FakeStoreGetProductQueryParams {
+  category?: categories
+  id?: undefined
+}
+interface FakeStoreGetProductPropsReturnItem extends FakeStoreGetProductQueryParams {
+  id?: number
+  category?: undefined
+}
+
+type FakeStoreProductProps = FakeStoreGetProductPropsReturnArray | FakeStoreGetProductPropsReturnItem
 
 const productSchema = z.object({
   id: z.number(),
@@ -23,7 +32,7 @@ const productSchema = z.object({
   })
 })
 
-export function useFakeStoreGetProduct(props: FakeStoreProductProps & ({id?: undefined} | {category?: categories})): UseQueryResult<{
+export function useFakeStoreGetProduct(props: FakeStoreGetProductPropsReturnArray): UseQueryResult<{
   id: number;
   title: string;
   price: number;
@@ -35,7 +44,7 @@ export function useFakeStoreGetProduct(props: FakeStoreProductProps & ({id?: und
       count: number;
   };
 }[], Error>;
-export function useFakeStoreGetProduct(props: FakeStoreProductProps & ({id?: number, category?: undefined})): UseQueryResult<{
+export function useFakeStoreGetProduct(props: FakeStoreGetProductPropsReturnItem): UseQueryResult<{
   id: number;
   title: string;
   price: number;
