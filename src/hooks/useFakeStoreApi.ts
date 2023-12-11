@@ -32,6 +32,8 @@ const productSchema = z.object({
   }),
 })
 
+export type Product = z.infer<typeof productSchema>
+
 export function useFakeStoreGetProduct(props?: FakeStoreGetProductPropsReturnArray): UseQueryResult<
   {
     id: number
