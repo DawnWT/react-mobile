@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
-import ProductCard from '../components/ProductCard'
+import  ProduceCard  from '../components/ProduceCard'
 import { useNavigation } from '@react-navigation/native'
 import { useFakeStoreGetProduct } from '../hooks/useFakeStoreApi'
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from 'react-native-reanimated'
@@ -31,7 +31,7 @@ export const CategoriesPage = () => {
       <View style={styles.header}>
         <Text style={styles.Texttop}>Hey, Halal</Text>
         <Image source={require('../../medias/icon/cart_icon.png')} style={styles.cartIcon} />
-        <Image source={require('../../medias/icon/search_icon.png')} style={styles.searchBarIcon} />
+        <Image source={require('../../medias/icon/Search_Icon.png')} style={styles.searchBarIcon} />
         <Image source={{ uri: '' }} width={10} height={10} style={styles.searchBarIcon} />
         <Text style={styles.Text_up}>Shop</Text>
         <Text style={styles.Text_down}>By Category</Text>
@@ -82,7 +82,7 @@ export const CategoriesPage = () => {
           data={data}
           numColumns={2}
           renderItem={({ item }) => (
-            <ProductCard
+            <ProduceCard
               price={item.price}
               title={item.title}
               onPress={() => navigateToProductDetail(item.id)}
