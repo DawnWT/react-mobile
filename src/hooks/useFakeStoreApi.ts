@@ -1,10 +1,10 @@
-import { z } from "zod"
-import { UseQueryResult, useQuery } from "@tanstack/react-query"
+import { z } from 'zod'
+import { UseQueryResult, useQuery } from '@tanstack/react-query'
 
-type categories = "electronics" | "jewelery" | "men's clothing" | "women's clothing"
+type categories = 'electronics' | 'jewelery' | "men's clothing" | "women's clothing"
 
 interface FakeStoreGetProductQueryParams {
-  sort?: "desc" | "asc"
+  sort?: 'desc' | 'asc'
   limit?: number
 }
 
@@ -13,7 +13,7 @@ interface FakeStoreGetProductPropsReturnArray extends FakeStoreGetProductQueryPa
   id?: undefined
 }
 interface FakeStoreGetProductPropsReturnItem extends FakeStoreGetProductQueryParams {
-  id?: number
+  id: number
   category?: undefined
 }
 
@@ -28,45 +28,51 @@ const productSchema = z.object({
   image: z.string().url(),
   rating: z.object({
     rate: z.number(),
-    count: z.number()
-  })
+    count: z.number(),
+  }),
 })
 
-// const {data} = useFakeStoreGetProduct()
+export type Product = z.infer<typeof productSchema>
 
-export function useFakeStoreGetProduct(props: FakeStoreGetProductPropsReturnArray): UseQueryResult<{
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: {
-      rate: number;
-      count: number;
-  };
-}[], Error>;
-export function useFakeStoreGetProduct(props: FakeStoreGetProductPropsReturnItem): UseQueryResult<{
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: {
-      rate: number;
-      count: number;
-  };
-}, Error>;
-export function useFakeStoreGetProduct({category, id, limit, sort}: FakeStoreProductProps) {
-  const baseUrl = "https://fakestoreapi.com/products"
+export function useFakeStoreGetProduct(props?: FakeStoreGetProductPropsReturnArray): UseQueryResult<
+  {
+    id: number
+    title: string
+    price: number
+    description: string
+    category: string
+    image: string
+    rating: {
+      rate: number
+      count: number
+    }
+  }[],
+  Error
+>
+export function useFakeStoreGetProduct(props?: FakeStoreGetProductPropsReturnItem): UseQueryResult<
+  {
+    id: number
+    title: string
+    price: number
+    description: string
+    category: string
+    image: string
+    rating: {
+      rate: number
+      count: number
+    }
+  },
+  Error
+>
+export function useFakeStoreGetProduct({ category, id, limit, sort }: FakeStoreProductProps = {}) {
+  const baseUrl = 'https://fakestoreapi.com/products'
 
   let url = `${baseUrl}/`
 /* 
   if (category) {
     url += `category/${category}`
   } else if (id) {
-      url += `${id}`
+    url += `${id}`
   }
  */
 
@@ -90,12 +96,12 @@ export function useFakeStoreGetProduct({category, id, limit, sort}: FakeStorePro
   console.log(url)
 
   const query = useQuery({
-    queryKey: ["fakeStore", url],
+    queryKey: ['fakeStore', url],
     queryFn: async () => {
       const response = await fetch(url)
 
       if (!response.ok) {
-        throw new Error("Network response was not ok")
+        throw new Error('Network response was not ok')
       }
 
       const data = await response.json()
@@ -105,7 +111,7 @@ export function useFakeStoreGetProduct({category, id, limit, sort}: FakeStorePro
 
         return validate
       }
-      
+
       const validate = productSchema.parse(data)
 
       return validate

@@ -36,7 +36,9 @@ const OnboardingCarouselItem: FC<OnboardingCarouselItemProps> = ({ title, descri
   return (
     <View style={{ overflow: 'hidden', width }}>
       <Text style={{ color: '#FAFBFD', fontWeight: '700', fontSize: 30, lineHeight: 38 }}>{title}</Text>
-      <Text style={{ color: '#B2BBCE', fontSize: 18, fontWeight: '500', lineHeight: 22, paddingTop: 20 }}>{description}</Text>
+      <Text style={{ color: '#B2BBCE', fontSize: 18, fontWeight: '500', lineHeight: 22, paddingTop: 20 }}>
+        {description}
+      </Text>
     </View>
   )
 }
@@ -62,7 +64,15 @@ export const OnboardingCarousel: FC<OnboardingCarouselProps> = ({ data, width })
 
   return (
     <View
-      style={{ display: 'flex', flexDirection: 'column', gap: 40, height: 220, maxWidth: '100%', overflow: 'hidden', width }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 40,
+        height: 220,
+        maxWidth: '100%',
+        overflow: 'hidden',
+        width,
+      }}
     >
       <FlatList
         data={data}
