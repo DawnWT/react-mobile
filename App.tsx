@@ -9,10 +9,14 @@ import { CategoriesPage } from './src/pages/CategoriesPage'
 import { MorePage } from './src/pages/MorePage'
 import { FavoritePage } from './src/pages/FavoritePage'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ProductPage } from './src/pages/ProductPage'
 
 export type StackParamList = {
   OnBoarding: undefined
   App: undefined
+  ProductDetails: {
+    productId: number
+  }
 }
 
 export type TabParamList = {
@@ -77,6 +81,7 @@ export default function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="App">
           <Stack.Screen name="OnBoarding" component={OnBoardingPage} />
           <Stack.Screen name="App" component={HomeTabs} />
+          <Stack.Screen name="ProductDetails" component={ProductPage} initialParams={{ productId: 0 }} />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>
