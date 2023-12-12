@@ -1,11 +1,13 @@
 import * as React from 'react'
-import { View, TextInput, Text, StyleSheet, Image, SafeAreaView } from 'react-native'
+import { View, TextInput, Text, StyleSheet, Image, SafeAreaView, TouchableOpacity } from 'react-native'
 import { useFakeStoreGetProduct } from '../hooks/useFakeStoreApi'
 import { Dropdown } from 'react-native-element-dropdown'
 import { ProductCard } from '../components/productCard'
 import { StatusBar } from 'expo-status-bar'
 import SVGCart from '../components/cartSVG'
 import { FlatList } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProps } from '../../App'
 
 const addressDropdownDatas = [{ address: 'Green Way 3000, Sylhet', id: 1 }]
 
@@ -17,6 +19,7 @@ const withinDropdownDatas = [
 
 export const HomePage = () => {
   const { data } = useFakeStoreGetProduct()
+  const navigation = useNavigation<StackNavigationProps<'App'>>()
 
   return (
     <View style={styles.container}>
@@ -72,7 +75,14 @@ export const HomePage = () => {
             <FlatList
               style={styles.bodyContainer}
               data={data}
-              renderItem={(data) => <ProductCard product={data.item} />}
+              renderItem={(data) => (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('ProductDetails', { productId: data.item.id })}
+                  style={{ width: '48%' }}
+                >
+                  <ProductCard product={data.item} />
+                </TouchableOpacity>
+              )}
               keyExtractor={(data) => data.title}
               numColumns={2}
               columnWrapperStyle={{ gap: 20, marginBottom: 10 }}
