@@ -32,6 +32,8 @@ const productSchema = z.object({
   })
 })
 
+// const {data} = useFakeStoreGetProduct()
+
 export function useFakeStoreGetProduct(props: FakeStoreGetProductPropsReturnArray): UseQueryResult<{
   id: number;
   title: string;
@@ -60,12 +62,22 @@ export function useFakeStoreGetProduct({category, id, limit, sort}: FakeStorePro
   const baseUrl = "https://fakestoreapi.com/products"
 
   let url = `${baseUrl}/`
-
+/* 
   if (category) {
     url += `category/${category}`
   } else if (id) {
       url += `${id}`
   }
+ */
+
+// prendre en charge le paramètre de catégorie comme suit 
+  if (category) {
+    url += `/category/${category}`;
+  } else if (id) {
+    url += `/${id}`;
+  }
+
+
 
   if (sort) {
     url += `?sort=${sort}`
@@ -74,6 +86,8 @@ export function useFakeStoreGetProduct({category, id, limit, sort}: FakeStorePro
   if (limit) {
     url += `?limit=${limit}`
   }
+
+  console.log(url)
 
   const query = useQuery({
     queryKey: ["fakeStore", url],
