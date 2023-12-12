@@ -1,38 +1,38 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 //import FastImage from 'react-native-fast-image';
-
-
 
 const ProductCard = ({ title, price, onPress, image }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.productCard}>
         <Image source={{ uri: image }} width={20} height={20} style={styles.productImage} />
+        <Image source={require('../../medias/icon/blue_add.png')} style={styles.priceIcon} />
         <View style={styles.productFooter}>
-          <Text style={styles.productPrice}>{price}$</Text>
-          <Text style={styles.productTitle}>{title}</Text>
+          <Text style={styles.productPrice}>{price} $</Text>
+          <Text style={styles.productTitle} numberOfLines={2}>
+            {title}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   productCard: {
     margin: 4,
     padding: 16,
     width: 180,
-    height: "auto",
+    height: 'auto',
     borderRadius: 12,
     overflow: 'hidden',
     backgroundColor: '#E7ECF0',
-    
   },
 
   productImage: {
-    //afficher l'image complète sans bg avec un radius 
-    width: "100%",
+    //afficher l'image complète sans bg avec un radius
+    width: '100%',
     height: 120,
     borderRadius: 4,
     alignSelf: 'center',
@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     //contour de l'image
     borderWidth: 1,
     borderColor: '#E0E0E0',
-
   },
 
   productTitle: {
@@ -64,13 +63,13 @@ const styles = StyleSheet.create({
     height: 16,
     position: 'absolute',
     right: 12,
-    top: 68,
+    top: 136,
   },
 
   productPrice: {
     fontSize: 16,
     color: '#2A4BA0',
   },
-});
+})
 
-export default ProductCard;
+export default ProductCard
